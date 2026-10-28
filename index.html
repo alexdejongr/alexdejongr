@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10191d">
+  <meta name="description" content="Alexander de Jong — computer engineering student at UPC Barcelona, working across applied AI, machine learning and software engineering.">
+  <meta property="og:title" content="Alexander de Jong — AI & Software Engineering">
+  <meta property="og:description" content="Applied AI, machine learning and software engineering. Based in Barcelona.">
+  <meta property="og:type" content="website">
+  <title>Alexander de Jong — AI & Software Engineering</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10191d;
+      --panel: #172328;
+      --panel-hi: #1d2b30;
+      --ink: #eff4ec;
+      --muted: #a5b4ad;
+      --quiet: #72847c;
+      --line: rgba(224, 241, 228, .14);
+      --acid: #d8fa78;
+      --blue: #91c9e8;
+      --orange: #ff9f73;
+      --sans: "DM Sans", sans-serif;
+      --display: "Space Grotesk", sans-serif;
+      --mono: "DM Mono", monospace;
+      --max: 1180px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--bg);
+      background-image: linear-gradient(rgba(210, 238, 221, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(210, 238, 221, .025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      font: 400 16px/1.65 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--acid); }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--acid); outline-offset: 5px; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .mono, .eyebrow, .tag, .nav-link, .project-index, .footer-note { font-family: var(--mono); }
+    .eyebrow { color: var(--acid); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    .topbar { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid var(--line); background: rgba(16, 25, 29, .88); backdrop-filter: blur(16px); }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { font: 700 15px/1 var(--display); letter-spacing: -.04em; }
+    .wordmark span { color: var(--acid); }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
+    .nav-link { color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; transition: color .2s ease; }
+    .nav-link:hover { color: var(--acid); }
+    .nav-contact { border: 1px solid var(--line); padding: 10px 14px; color: var(--ink); }
+
+    .hero { min-height: min(760px, calc(100svh - 72px)); padding-block: clamp(76px, 11vw, 142px) 92px; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr); align-items: center; gap: clamp(38px, 7vw, 96px); }
+    .hero-copy { position: relative; z-index: 1; }
+    .hero h1 { max-width: 760px; margin: 22px 0 24px; font: 600 clamp(3.4rem, 8.5vw, 7.35rem)/.91 var(--display); letter-spacing: -.085em; }
+    .hero h1 .accent { color: var(--acid); }
+    .hero-lede { max-width: 540px; margin: 0; color: var(--muted); font-size: clamp(17px, 1.7vw, 20px); line-height: 1.65; }
+    .hero-lede strong { color: var(--ink); font-weight: 500; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 34px; }
+    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 18px; border: 1px solid var(--line); font: 500 12px var(--mono); letter-spacing: .025em; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { color: var(--bg); border-color: var(--acid); background: var(--acid); }
+    .button.primary:hover { color: var(--bg); background: #e6ff9d; }
+    .button .arrow { font-size: 16px; line-height: 1; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 48px; color: var(--quiet); font: 11px var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 9px; }
+    .hero-meta span::before { content: ""; width: 5px; height: 5px; background: var(--orange); border-radius: 50%; }
+
+    .signal-card { position: relative; min-height: 365px; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(150deg, rgba(29,43,48,.94), rgba(19,30,34,.94)); box-shadow: 20px 24px 70px rgba(0,0,0,.18); }
+    .signal-card::before { content: ""; position: absolute; inset: 38px 0 auto; height: 1px; background: var(--line); }
+    .signal-head { position: relative; z-index: 1; height: 38px; display: flex; align-items: center; justify-content: space-between; padding-inline: 15px; color: var(--quiet); font: 10px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+    .signal-live { display: inline-flex; align-items: center; gap: 7px; }
+    .signal-live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 12px rgba(216,250,120,.6); }
+    .signal-svg { position: absolute; inset: 39px 0 58px; width: 100%; height: calc(100% - 97px); }
+    .signal-footer { position: absolute; inset: auto 0 0; height: 58px; display: flex; align-items: center; justify-content: space-between; padding-inline: 16px; border-top: 1px solid var(--line); color: var(--muted); font: 10px var(--mono); }
+    .signal-footer b { color: var(--acid); font-weight: 400; }
+    .orbit { transform-origin: 50% 50%; animation: rotate 40s linear infinite; }
+    .pulse { animation: pulse 3s ease-in-out infinite; }
+    .pulse.delay { animation-delay: 1.1s; }
+    .trace { stroke-dasharray: 8 10; animation: dash 24s linear infinite; }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    @keyframes pulse { 0%,100% { opacity: .5; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+    @keyframes dash { to { stroke-dashoffset: -180; } }
+
+    .ticker { border-block: 1px solid var(--line); overflow: hidden; background: rgba(23,35,40,.62); }
+    .ticker-track { display: flex; width: max-content; padding-block: 16px; animation: marquee 34s linear infinite; }
+    .ticker-item { display: flex; align-items: center; gap: 24px; padding-inline: 25px; color: var(--muted); font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .ticker-item::after { content: "✳"; color: var(--orange); font-size: 13px; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .section { padding-block: clamp(84px, 11vw, 138px); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 44px; }
+    .section-head h2 { margin: 10px 0 0; font: 600 clamp(2.25rem, 5vw, 4.15rem)/1 var(--display); letter-spacing: -.065em; }
+    .section-note { max-width: 260px; margin: 0 0 4px; color: var(--quiet); font: 10px/1.8 var(--mono); text-align: right; text-transform: uppercase; letter-spacing: .06em; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+    .project { min-height: 310px; display: flex; flex-direction: column; padding: clamp(22px, 3vw, 34px); border: 1px solid var(--line); background: rgba(23,35,40,.74); transition: border-color .2s ease, transform .2s ease, background .2s ease; }
+    .project:hover { transform: translateY(-4px); border-color: rgba(216,250,120,.5); background: var(--panel); }
+    .project-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .project-index { color: var(--quiet); font-size: 10px; letter-spacing: .08em; }
+    .project-link { color: var(--acid); font: 11px var(--mono); }
+    .project h3 { margin: 38px 0 10px; font: 600 clamp(1.4rem, 2.6vw, 2rem)/1.08 var(--display); letter-spacing: -.05em; }
+    .project p { max-width: 56ch; margin: 0; color: var(--muted); font-size: 14px; }
+    .project-bottom { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 28px; }
+    .tag { padding: 6px 9px; border: 1px solid var(--line); color: var(--quiet); font-size: 9px; letter-spacing: .03em; }
+    .project.cuda { background: linear-gradient(135deg, rgba(29,43,48,.98), rgba(25,40,43,.82)); }
+    .project.cuda .project-index { color: var(--orange); }
+
+    .experience { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(17,27,31,.58); }
+    .experience-list { border-top: 1px solid var(--line); }
+    .role { display: grid; grid-template-columns: minmax(150px,.72fr) minmax(0,1.6fr) minmax(145px,.65fr); gap: 24px; padding: 25px 0; border-bottom: 1px solid var(--line); }
+    .role-date { color: var(--quiet); font: 10px/1.7 var(--mono); letter-spacing: .025em; text-transform: uppercase; }
+    .role h3 { margin: 0; font: 600 19px/1.2 var(--display); letter-spacing: -.035em; }
+    .role-company { display: block; margin-top: 5px; color: var(--acid); font-size: 12px; }
+    .role-description { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+    .role-location { color: var(--quiet); font: 10px var(--mono); text-align: right; text-transform: uppercase; }
+
+    .about-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.75fr); gap: clamp(40px, 8vw, 112px); align-items: start; }
+    .about-copy h2 { margin: 10px 0 20px; font: 600 clamp(2.4rem, 5.5vw, 4.7rem)/.98 var(--display); letter-spacing: -.075em; }
+    .about-copy p { max-width: 58ch; color: var(--muted); }
+    .about-copy p strong { color: var(--ink); font-weight: 500; }
+    .education-card { padding: 24px; border-left: 2px solid var(--acid); background: var(--panel); }
+    .education-card .eyebrow { color: var(--quiet); }
+    .education-card h3 { margin: 15px 0 4px; font: 600 18px var(--display); letter-spacing: -.03em; }
+    .education-card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .education-card .exchange { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+    .skills .tag { color: var(--muted); }
+
+    .contact { padding-block: clamp(74px, 10vw, 125px); border-top: 1px solid var(--line); background: var(--acid); color: var(--bg); }
+    .contact-inner { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+    .contact .eyebrow { color: rgba(16,25,29,.67); }
+    .contact h2 { max-width: 750px; margin: 12px 0 0; font: 600 clamp(2.8rem, 7vw, 6.6rem)/.92 var(--display); letter-spacing: -.08em; }
+    .contact .button { flex: 0 0 auto; border-color: var(--bg); }
+    .contact .button:hover { color: var(--acid); background: var(--bg); }
+    footer { padding-block: 22px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: center; color: var(--quiet); }
+    .footer-note { font-size: 9px; letter-spacing: .04em; }
+    .footer-links { display: flex; gap: 18px; font: 10px var(--mono); }
+
+    @media (max-width: 800px) {
+      .hero { min-height: auto; grid-template-columns: 1fr; padding-top: 86px; }
+      .signal-card { width: min(100%, 520px); min-height: 330px; }
+      .hero h1 { max-width: 650px; }
+      .role { grid-template-columns: 1fr 2fr; gap: 9px 20px; }
+      .role-location { grid-column: 2; text-align: left; }
+      .about-grid { grid-template-columns: 1fr; }
+      .education-card { max-width: 540px; }
+      .contact-inner { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(var(--max), calc(100% - 32px)); }
+      .nav { min-height: 64px; }
+      .nav-links { gap: 13px; }
+      .nav-link { font-size: 9px; }
+      .nav-link.optional { display: none; }
+      .nav-contact { padding: 8px 9px; }
+      .hero { gap: 38px; padding-block: 72px 70px; }
+      .hero h1 { font-size: clamp(3.25rem, 16vw, 5rem); }
+      .hero-meta { margin-top: 34px; }
+      .signal-card { min-height: 285px; }
+      .section-head { align-items: start; flex-direction: column; margin-bottom: 30px; }
+      .section-note { text-align: left; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project { min-height: 280px; }
+      .role { grid-template-columns: 1fr; gap: 8px; }
+      .role-location { grid-column: auto; }
+      .footer-inner { align-items: start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="wordmark" href="#top" aria-label="Alexander de Jong, home">A<span>/</span>DJ</a>
+      <div class="nav-links">
+        <a class="nav-link" href="#work">Work</a>
+        <a class="nav-link optional" href="#experience">Experience</a>
+        <a class="nav-link optional" href="#about">About</a>
+        <a class="nav-link nav-contact" href="#contact">Get in touch ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Computer engineering · Applied AI · Barcelona</p>
+        <h1 id="hero-title">From <span class="accent">models</span><br>to things<br>that work.</h1>
+        <p class="hero-lede">I’m Alexander — a computer engineering student at UPC and <strong>AI engineer intern</strong>, interested in turning machine learning into useful software.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">Explore selected work <span class="arrow">↓</span></a>
+          <a class="button" href="https://github.com/alexdejongr" target="_blank" rel="noreferrer">GitHub <span class="arrow">↗</span></a>
+        </div>
+        <div class="hero-meta" aria-label="Profile details">
+          <span>UPC Barcelona</span><span>AI & software</span><span>English · Spanish · Catalan</span>
+        </div>
+      </div>
+
+      <div class="signal-card" role="img" aria-label="Abstract visualization of connected tokens flowing into a machine learning model">
+        <div class="signal-head"><span>signal / 001</span><span class="signal-live">systems in motion</span></div>
+        <svg class="signal-svg" viewBox="0 0 480 320" fill="none" aria-hidden="true">
+          <defs>
+            <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" stroke="#d8e6df" stroke-opacity=".075" stroke-width="1"/></pattern>
+            <linearGradient id="flow" x1="40" y1="100" x2="430" y2="225" gradientUnits="userSpaceOnUse"><stop stop-color="#91c9e8"/><stop offset=".54" stop-color="#d8fa78"/><stop offset="1" stop-color="#ff9f73"/></linearGradient>
+            <radialGradient id="glow"><stop stop-color="#d8fa78" stop-opacity=".3"/><stop offset="1" stop-color="#d8fa78" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="480" height="320" fill="url(#grid)"/>
+          <circle cx="292" cy="159" r="95" fill="url(#glow)"/>
+          <g stroke="url(#flow)" stroke-opacity=".72" stroke-width="1.25">
+            <path class="trace" d="M50 83C130 83 135 143 218 143S305 84 415 84"/>
+            <path class="trace" d="M50 160C126 160 143 102 218 102S311 204 415 204"/>
+            <path class="trace" d="M50 236C124 236 147 183 218 183S309 132 415 132"/>
+            <path d="M50 83C130 83 135 143 218 143S305 84 415 84" opacity=".24"/>
+            <path d="M50 160C126 160 143 102 218 102S311 204 415 204" opacity=".24"/>
+            <path d="M50 236C124 236 147 183 218 183S309 132 415 132" opacity=".24"/>
+          </g>
+          <g fill="#172328" stroke="#91c9e8" stroke-width="1.5">
+            <rect x="28" y="66" width="44" height="34" rx="2"/><rect x="28" y="143" width="44" height="34" rx="2"/><rect x="28" y="219" width="44" height="34" rx="2"/>
+          </g>
+          <g fill="#91c9e8" font-family="DM Mono, monospace" font-size="9" text-anchor="middle"><text x="50" y="87">x₁</text><text x="50" y="164">x₂</text><text x="50" y="240">xₙ</text></g>
+          <g class="orbit" stroke="#d8fa78" stroke-opacity=".6" stroke-width="1" stroke-dasharray="2 6"><circle cx="292" cy="145" r="65"/><circle cx="292" cy="145" r="81"/></g>
+          <g fill="#d8fa78" stroke="#10191d" stroke-width="4">
+            <circle class="pulse" cx="242" cy="128" r="6"/><circle class="pulse delay" cx="316" cy="94" r="6"/><circle class="pulse" cx="333" cy="167" r="6"/><circle class="pulse delay" cx="274" cy="205" r="6"/><circle cx="292" cy="145" r="10" fill="#ff9f73"/>
+          </g>
+          <g fill="#a5b4ad" font-family="DM Mono, monospace" font-size="9"><text x="250" y="255">LEARN</text><text x="376" y="111">INFER</text></g>
+          <path d="M415 84v120" stroke="#ff9f73" stroke-opacity=".45" stroke-dasharray="3 5"/>
+          <rect x="398" y="132" width="34" height="34" rx="2" fill="#172328" stroke="#ff9f73"/>
+          <path d="m409 149 5 5 9-11" stroke="#ff9f73" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="signal-footer"><span>INPUT → STRUCTURE → OUTPUT</span><b>build / test / iterate</b></div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="Areas of interest">
+      <div class="ticker-track" aria-hidden="true">
+        <span class="ticker-item">Applied AI</span><span class="ticker-item">Natural language processing</span><span class="ticker-item">Computer vision</span><span class="ticker-item">Full-stack software</span><span class="ticker-item">Machine learning</span><span class="ticker-item">Applied AI</span><span class="ticker-item">Natural language processing</span><span class="ticker-item">Computer vision</span><span class="ticker-item">Full-stack software</span><span class="ticker-item">Machine learning</span>
+      </div>
+    </div>
+
+    <section class="section wrap" id="work" aria-labelledby="work-title">
+      <div class="section-head">
+        <div><p class="eyebrow">Selected work / 01—04</p><h2 id="work-title">Questions, then code.</h2></div>
+        <p class="section-note">Coursework, research experiments<br>and systems projects</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project cuda">
+          <div class="project-top"><span class="project-index">01 / GPU COMPUTING</span><a class="project-link" href="https://github.com/alexdejongr/cuda_anomaly" target="_blank" rel="noreferrer" aria-label="View CUDA Streaming Anomaly Highlighter on GitHub">Repository ↗</a></div>
+          <h3>CUDA Streaming<br>Anomaly Highlighter</h3>
+          <p>A tiled Sobel pipeline that flags high-edge-density regions. The repository’s Tesla T4 benchmark reports up to 76.4× speedup over its CPU reference with four CUDA streams.</p>
+          <div class="project-bottom"><span class="tag">C++17</span><span class="tag">CUDA</span><span class="tag">Parallel computing</span></div>
+        </article>
+        <article class="project">
+          <div class="project-top"><span class="project-index">02 / NLP + GRAPH LEARNING</span><a class="project-link" href="https://github.com/alexdejongr/NLP-Graph-GAT-BERT" target="_blank" rel="noreferrer" aria-label="View Graph-Based Text Classification on GitHub">Repository ↗</a></div>
+          <h3>Graph-based text<br>classification</h3>
+          <p>Explores whether token-level graph structure can complement BERT embeddings, comparing co-occurrence and dependency graphs with a Graph Attention Network.</p>
+          <div class="project-bottom"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">BERT · GAT</span></div>
+        </article>
+        <article class="project">
+          <div class="project-top"><span class="project-index">03 / TABULAR ML</span><a class="project-link" href="https://github.com/alexdejongr/Miami-Housing-ML-Prediction" target="_blank" rel="noreferrer" aria-label="View Miami Housing Price Prediction on GitHub">Repository ↗</a></div>
+          <h3>What shapes a<br>home’s value?</h3>
+          <p>A comparison of regression and machine-learning approaches for Miami housing prices, with attention to geographic and structural features.</p>
+          <div class="project-bottom"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">Regression</span></div>
+        </article>
+        <article class="project">
+          <div class="project-top"><span class="project-index">04 / COMPUTER VISION</span><a class="project-link" href="https://github.com/alexdejongr/Sign_Detection_VC" target="_blank" rel="noreferrer" aria-label="View Traffic Sign Detection and Classification on GitHub">Repository ↗</a></div>
+          <h3>Traffic sign<br>recognition</h3>
+          <p>A classical computer-vision pipeline combining color segmentation, shape and HOG features, dimensionality reduction and classifier evaluation.</p>
+          <div class="project-bottom"><span class="tag">MATLAB</span><span class="tag">Computer vision</span><span class="tag">HOG · SVM</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Experience / 2023—now</p><h2 id="experience-title">Built with teams.</h2></div>
+          <p class="section-note">From production-minded AI<br>to customer-facing work</p>
+        </div>
+        <div class="experience-list">
+          <article class="role">
+            <div class="role-date">Sep 2026 — Present</div>
+            <div><h3>AI Engineer Intern</h3><span class="role-company">Cuatrecasas</span><p class="role-description">Generative AI and LLM applications for the legal market, working across prompting, application development, testing and delivery with Azure AI tools.</p></div>
+            <div class="role-location">Barcelona, Spain</div>
+          </article>
+          <article class="role">
+            <div class="role-date">Jun 2025 — Sep 2025</div>
+            <div><h3>AI Developer Intern</h3><span class="role-company">Mindsight Ventures</span><p class="role-description">Developed a full-stack AI video-generation application with Next.js, Express and PostgreSQL; integrated LLMs and agents into content workflows. A validation system improved generated-code reliability to 95%.</p></div>
+            <div class="role-location">Barcelona, Spain</div>
+          </article>
+          <article class="role">
+            <div class="role-date">Summer 2023 & 2024</div>
+            <div><h3>Sales Assistant</h3><span class="role-company">Retail</span><p class="role-description">Customer service, product restocking and warehouse support during high-traffic periods.</p></div>
+            <div class="role-location">Mataró, Spain</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="about" aria-labelledby="about-title">
+      <div class="about-grid">
+        <div class="about-copy">
+          <p class="eyebrow">A little context</p>
+          <h2 id="about-title">Curious about what’s under the hood.</h2>
+          <p>I’m in my fourth year of <strong>Computer Engineering at Universitat Politècnica de Catalunya</strong>, specializing in Computing. I like moving between the model, the product and the code that connects them — especially in applied AI, NLP and computer vision.</p>
+          <p>Outside the stack: I speak Spanish and Catalan natively, English at C1 level, and Dutch at B1. I spent 2026 on an Erasmus+ exchange at Wrocław University of Science and Technology.</p>
+          <div class="skills" aria-label="Technical skills"><span class="tag">Python</span><span class="tag">C / C++</span><span class="tag">Java</span><span class="tag">PyTorch</span><span class="tag">scikit-learn</span><span class="tag">NLP</span><span class="tag">Computer vision</span><span class="tag">AI agents</span><span class="tag">SQL · PostgreSQL</span><span class="tag">Azure OpenAI</span><span class="tag">Next.js</span><span class="tag">Linux</span></div>
+        </div>
+        <aside class="education-card" aria-label="Education">
+          <p class="eyebrow">Currently learning</p>
+          <h3>BSc Computer Engineering</h3>
+          <p>Specialization in Computing<br>Universitat Politècnica de Catalunya<br>Barcelona · 2022—Present</p>
+          <div class="exchange"><p class="eyebrow">International exchange</p><h3>Erasmus+</h3><p>Wrocław University of Science and Technology<br>Wrocław, Poland · 2026</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact-inner wrap">
+        <div><p class="eyebrow">Have a good problem?</p><h2 id="contact-title">Let’s make<br>something useful.</h2></div>
+        <a class="button" href="mailto:alexdejongroca22@gmail.com">Email me <span class="arrow">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner wrap">
+      <span class="footer-note">© <span id="year">2026</span> Alexander de Jong · Barcelona</span>
+      <div class="footer-links"><a href="https://github.com/alexdejongr" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/alexander-de-jongr" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:alexdejongroca22@gmail.com">Email ↗</a></div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
