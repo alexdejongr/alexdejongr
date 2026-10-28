@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="profile-banner.svg" alt="Alexander de Jong — AI and software engineering" width="100%">
+  <img src="profile-banner-minimal.svg" alt="Alexander de Jong — Computer Engineering · UPC Barcelona" width="100%">
   <p>
     <a href="https://www.linkedin.com/in/alexander-de-jongr">LinkedIn</a> ·
     <a href="mailto:alexdejongroca22@gmail.com">Email</a> ·
